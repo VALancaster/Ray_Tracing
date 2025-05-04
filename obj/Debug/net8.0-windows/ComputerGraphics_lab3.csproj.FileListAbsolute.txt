@@ -29,3 +29,4 @@ C:\Users\vkutergi\Computer Graphics\ComputerGraphics_lab3\obj\Debug\net8.0-windo
 C:\Users\vkutergi\Computer Graphics\ComputerGraphics_lab3\obj\Debug\net8.0-windows\ComputerGraphics_lab3.pdb
 C:\Users\vkutergi\Computer Graphics\ComputerGraphics_lab3\obj\Debug\net8.0-windows\ComputerGraphics_lab3.genruntimeconfig.cache
 C:\Users\vkutergi\Computer Graphics\ComputerGraphics_lab3\obj\Debug\net8.0-windows\ref\ComputerGraphics_lab3.dll
+C:\Users\vkutergi\Computer Graphics\ComputerGraphics_lab3\obj\Debug\net8.0-windows\ComputerGraphics_lab3.sourcelink.json
