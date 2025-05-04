@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\vkutergi\\Computer Graphics\\ComputerGraphics_lab3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BDDD7180-A1C0-45D4-B801-829CF059E1BC}|ComputerGraphics_lab3.csproj|c:\\users\\vkutergi\\computer graphics\\computergraphics_lab3\\ray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BDDD7180-A1C0-45D4-B801-829CF059E1BC}|ComputerGraphics_lab3.csproj|solutionrelative:ray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BDDD7180-A1C0-45D4-B801-829CF059E1BC}|ComputerGraphics_lab3.csproj|c:\\users\\vkutergi\\computer graphics\\computergraphics_lab3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BDDD7180-A1C0-45D4-B801-829CF059E1BC}|ComputerGraphics_lab3.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BDDD7180-A1C0-45D4-B801-829CF059E1BC}|ComputerGraphics_lab3.csproj|c:\\users\\vkutergi\\computer graphics\\computergraphics_lab3\\shaders\\raytracing.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{BDDD7180-A1C0-45D4-B801-829CF059E1BC}|ComputerGraphics_lab3.csproj|solutionrelative:shaders\\raytracing.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BDDD7180-A1C0-45D4-B801-829CF059E1BC}|ComputerGraphics_lab3.csproj|c:\\users\\vkutergi\\computer graphics\\computergraphics_lab3\\shaders\\raytracing.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{BDDD7180-A1C0-45D4-B801-829CF059E1BC}|ComputerGraphics_lab3.csproj|solutionrelative:shaders\\raytracing.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "raytracing.frag",
+              "DocumentMoniker": "C:\\Users\\vkutergi\\Computer Graphics\\ComputerGraphics_lab3\\Shaders\\raytracing.frag",
+              "RelativeDocumentMoniker": "Shaders\\raytracing.frag",
+              "ToolTip": "C:\\Users\\vkutergi\\Computer Graphics\\ComputerGraphics_lab3\\Shaders\\raytracing.frag",
+              "RelativeToolTip": "Shaders\\raytracing.frag",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-04T14:33:26.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "raytracing.vert",
+              "DocumentMoniker": "C:\\Users\\vkutergi\\Computer Graphics\\ComputerGraphics_lab3\\Shaders\\raytracing.vert",
+              "RelativeDocumentMoniker": "Shaders\\raytracing.vert",
+              "ToolTip": "C:\\Users\\vkutergi\\Computer Graphics\\ComputerGraphics_lab3\\Shaders\\raytracing.vert",
+              "RelativeToolTip": "Shaders\\raytracing.vert",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-04T14:33:25.15Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Ray.cs",
+              "DocumentMoniker": "C:\\Users\\vkutergi\\Computer Graphics\\ComputerGraphics_lab3\\Ray.cs",
+              "RelativeDocumentMoniker": "Ray.cs",
+              "ToolTip": "C:\\Users\\vkutergi\\Computer Graphics\\ComputerGraphics_lab3\\Ray.cs",
+              "RelativeToolTip": "Ray.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJoAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T12:27:21.22Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\vkutergi\\Computer Graphics\\ComputerGraphics_lab3\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\vkutergi\\Computer Graphics\\ComputerGraphics_lab3\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAYAAAAImpmZmZkewA4AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T12:18:29.115Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
