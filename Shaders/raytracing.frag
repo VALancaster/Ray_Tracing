@@ -83,7 +83,7 @@ SLight light;
 SMaterial materials[2];
 SCamera uCamera;
 
-STracingRay stack[1000];
+STracingRay stack[100];
 int stackSize = 0;
 
 bool isEmpty()
@@ -316,8 +316,8 @@ void initializeDefaultLightMaterials(out SLight light, out SMaterial materials[2
 
 	materials[1].Color = vec3(0.8, 0.1, 1.0);
 	materials[1].LightCoeffs = vec4(lightCoefs);
-	materials[1].ReflectionCoef = 0.5;
-	materials[1].RefractionCoef = 1.0;
+	materials[1].ReflectionCoef = 1.0;
+	materials[1].RefractionCoef = 0.5;
 	materials[1].MaterialType = DIFFUSE;
 }
 
@@ -360,7 +360,7 @@ void main()
 	initializeDefaultLightMaterials(light, materials);
 	if (RayTrace(ray, spheres, triangles, materials, start, final, intersect))
 	{
-		resultColor = vec3(1,0,0);
+		resultColor = vec3(0.0 , 0.1, 0.1);
 	}
 
 	STracingRay	trRay = STracingRay(ray, 1, 0);
