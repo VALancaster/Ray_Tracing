@@ -126,76 +126,70 @@ SCamera initializeDefaultCamera()
 void initializeDefaultScene(out STriangle triangles[12], out SSphere spheres[2]) 
 {
 	/** TRIANGLES **/
+    triangles[0].v1 = vec3(-5.0,-5.0,-5.0);
+    triangles[0].v2 = vec3(-5.0, 5.0, 5.0);
+    triangles[0].v3 = vec3(-5.0, 5.0,-5.0);
+    triangles[0].MaterialIdx = 2;
 
-	/*front wall */
-	triangles[0].v1 = vec3(-5.0, 5.0, 5.0);
-	triangles[0].v2 = vec3(5.0, 5.0, 5.0);
-	triangles[0].v3 = vec3(-5.0, -5.0, 5.0);
-	triangles[0].MaterialIdx = 2;
+    triangles[1].v1 = vec3(-5.0,-5.0,-5.0);
+    triangles[1].v2 = vec3(-5.0,-5.0, 5.0);
+    triangles[1].v3 = vec3(-5.0, 5.0, 5.0);
+    triangles[1].MaterialIdx = 2;
 
-	triangles[1].v1 = vec3(5.0, -5.0, 5.0);
-	triangles[1].v2 = vec3(5.0, 5.0, 5.0);
-	triangles[1].v3 = vec3(-5.0, -5.0, 5.0);
-	triangles[1].MaterialIdx = 2;
+    triangles[2].v1 = vec3(-5.0,-5.0, 5.0);
+    triangles[2].v2 = vec3( 5.0,-5.0, 5.0);
+    triangles[2].v3 = vec3(-5.0, 5.0, 5.0);
+    triangles[2].MaterialIdx = 5;
 
-	/* right wall */
-	triangles[2].v1 = vec3(5.0, 5.0, 5.0);
-	triangles[2].v2 = vec3(5.0, 5.0, -5.0);
-	triangles[2].v3 = vec3(5.0, -5.0, 5.0);
-	triangles[2].MaterialIdx = 5;
+    triangles[3].v1 = vec3( 5.0, 5.0, 5.0);
+    triangles[3].v2 = vec3(-5.0, 5.0, 5.0);
+    triangles[3].v3 = vec3( 5.0,-5.0, 5.0);
+    triangles[3].MaterialIdx = 5;
 
-	triangles[3].v1 = vec3(5.0, -5.0, -5.0);
-	triangles[3].v2 = vec3(5.0, 5.0, -5.0);
-	triangles[3].v3 = vec3(5.0, -5.0, 5.0);
-	triangles[3].MaterialIdx = 5;
+    triangles[4].v1 = vec3(5.0,-5.0,-5.0);
+    triangles[4].v2 = vec3(5.0, 5.0,-5.0);
+    triangles[4].v3 = vec3(5.0, 5.0, 5.0);
+    triangles[4].MaterialIdx = 3;
 
-	/* back wall */
-	triangles[4].v1 = vec3(-5.0,-5.0, 5.0);
-	triangles[4].v2 = vec3( 5.0,-5.0, 5.0);
-	triangles[4].v3 = vec3(-5.0, 5.0, 5.0);
-	triangles[4].MaterialIdx = 3;
+    triangles[5].v1 = vec3(5.0,-5.0,-5.0);
+    triangles[5].v2 = vec3(5.0, 5.0, 5.0);
+    triangles[5].v3 = vec3(5.0,-5.0, 5.0);
+    triangles[5].MaterialIdx = 3;
 
-	triangles[5].v1 = vec3( 5.0, 5.0, 5.0);
-	triangles[5].v2 = vec3(-5.0, 5.0, 5.0);
-	triangles[5].v3 = vec3( 5.0,-5.0, 5.0);
-	triangles[5].MaterialIdx = 3;
+    triangles[6].v1 = vec3(-5.0,-5.0,-5.0);
+    triangles[6].v2 = vec3( 5.0,-5.0,-5.0);
+    triangles[6].v3 = vec3(-5.0,-5.0, 5.0);
+    triangles[6].MaterialIdx = 0;
 
-	/* left wall */
-	triangles[6].v1 = vec3(-5.0,-5.0,-5.0);
-	triangles[6].v2 = vec3(-5.0, 5.0, 5.0);
-	triangles[6].v3 = vec3(-5.0, 5.0,-5.0);
-	triangles[6].MaterialIdx = 1;
+    triangles[7].v1 = vec3( 5.0,-5.0,-5.0);
+    triangles[7].v2 = vec3( 5.0,-5.0, 5.0);
+    triangles[7].v3 = vec3(-5.0,-5.0, 5.0);
+    triangles[7].MaterialIdx = 0;
 
-	triangles[7].v1 = vec3(-5.0,-5.0,-5.0);
-	triangles[7].v2 = vec3(-5.0,-5.0, 5.0);
-	triangles[7].v3 = vec3(-5.0, 5.0, 5.0);
-	triangles[7].MaterialIdx = 1;
+    triangles[8].v1 = vec3(-5.0,5.0,-5.0);
+    triangles[8].v2 = vec3(-5.0,5.0, 5.0);
+    triangles[8].v3 = vec3( 5.0,5.0,-5.0);
+    triangles[8].MaterialIdx = 0;
 
-	/* top wall */
-	triangles[8].v1 = vec3(-5.0,5.0,-5.0);
-	triangles[8].v2 = vec3(5.0, 5.0, -5.0);
-	triangles[8].v3 = vec3(-5.0, 5.0,5.0);
-	triangles[8].MaterialIdx = 3;
+    triangles[9].v1 = vec3( 5.0,5.0, 5.0);
+    triangles[9].v2 = vec3( 5.0,5.0,-5.0);
+    triangles[9].v3 = vec3(-5.0,5.0, 5.0);
+    triangles[9].MaterialIdx = 0;
 
-	triangles[9].v1 = vec3(5.0,5.0,5.0);
-	triangles[9].v2 = vec3(5.0, 5.0, -5.0);
-	triangles[9].v3 = vec3(-5.0, 5.0,5.0);
-	triangles[9].MaterialIdx = 3;
+    triangles[10].v1 = vec3(-5.0,-5.0,-5.0);
+    triangles[10].v2 = vec3(-5.0, 5.0,-5.0);
+    triangles[10].v3 = vec3( 5.0, 5.0,-5.0);
+    triangles[10].MaterialIdx = 5;
 
-	/* bottom wall */
-	triangles[10].v1 = vec3(-5.0,-5.0,-5.0);
-	triangles[10].v2 = vec3(5.0, -5.0, -5.0);
-	triangles[10].v3 = vec3(-5.0, -5.0,5.0);
-	triangles[10].MaterialIdx = 5;
+    triangles[11].v1 = vec3(-5.0,-5.0,-5.0);
+    triangles[11].v2 = vec3( 5.0, 5.0,-5.0);
+    triangles[11].v3 = vec3( 5.0,-5.0,-5.0);
+    triangles[11].MaterialIdx = 5;
 
-	triangles[11].v1 = vec3(5.0,-5.0,5.0);
-	triangles[11].v2 = vec3(5.0,-5.0, -5.0);
-	triangles[11].v3 = vec3(-5.0, -5.0,5.0);
-	triangles[11].MaterialIdx = 5;
 
 	/** SPHERES **/
 
-	spheres[0].Center = vec3(-1.0,-1.0,-2.0);
+	spheres[0].Center = vec3(-1.0,-1.0,-1.0);
 	spheres[0].Radius = 2.0;
 	spheres[0].MaterialIdx = 0;
 
@@ -377,7 +371,7 @@ void main()
 	float start = 0;
 	float final = BIG;
 
-	uCamera = uCamera = SCamera(vec3(0.0, 0.0, -8.0), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), vec2(1.0));
+	uCamera = uCamera = SCamera(vec3(0.0, 0.0, -4.9), vec3(0.0, 0.0, 1.0), vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), vec2(1.0));
 	SRay ray = GenerateRay(uCamera); 
 	SIntersection intersect;
 	intersect.Time = BIG;
