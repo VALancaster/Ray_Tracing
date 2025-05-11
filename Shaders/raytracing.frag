@@ -80,10 +80,10 @@ struct STracingRay
 STriangle triangles[12]; 
 SSphere spheres[2];
 SLight light;
-SMaterial materials[2];
+SMaterial materials[6];
 SCamera uCamera;
 
-STracingRay stack[100];
+STracingRay stack[10];
 int stackSize = 0;
 
 bool isEmpty()
@@ -131,67 +131,67 @@ void initializeDefaultScene(out STriangle triangles[12], out SSphere spheres[2])
 	triangles[0].v1 = vec3(-5.0, 5.0, 5.0);
 	triangles[0].v2 = vec3(5.0, 5.0, 5.0);
 	triangles[0].v3 = vec3(-5.0, -5.0, 5.0);
-	triangles[0].MaterialIdx = 0;
+	triangles[0].MaterialIdx = 2;
 
 	triangles[1].v1 = vec3(5.0, -5.0, 5.0);
 	triangles[1].v2 = vec3(5.0, 5.0, 5.0);
 	triangles[1].v3 = vec3(-5.0, -5.0, 5.0);
-	triangles[1].MaterialIdx = 0;
+	triangles[1].MaterialIdx = 2;
 
 	/* right wall */
 	triangles[2].v1 = vec3(5.0, 5.0, 5.0);
 	triangles[2].v2 = vec3(5.0, 5.0, -5.0);
 	triangles[2].v3 = vec3(5.0, -5.0, 5.0);
-	triangles[2].MaterialIdx = 0;
+	triangles[2].MaterialIdx = 5;
 
 	triangles[3].v1 = vec3(5.0, -5.0, -5.0);
 	triangles[3].v2 = vec3(5.0, 5.0, -5.0);
 	triangles[3].v3 = vec3(5.0, -5.0, 5.0);
-	triangles[3].MaterialIdx = 0;
+	triangles[3].MaterialIdx = 5;
 
 	/* back wall */
 	triangles[4].v1 = vec3(-5.0,-5.0, 5.0);
 	triangles[4].v2 = vec3( 5.0,-5.0, 5.0);
 	triangles[4].v3 = vec3(-5.0, 5.0, 5.0);
-	triangles[4].MaterialIdx = 0;
+	triangles[4].MaterialIdx = 3;
 
 	triangles[5].v1 = vec3( 5.0, 5.0, 5.0);
 	triangles[5].v2 = vec3(-5.0, 5.0, 5.0);
 	triangles[5].v3 = vec3( 5.0,-5.0, 5.0);
-	triangles[5].MaterialIdx = 0;
+	triangles[5].MaterialIdx = 3;
 
 	/* left wall */
 	triangles[6].v1 = vec3(-5.0,-5.0,-5.0);
 	triangles[6].v2 = vec3(-5.0, 5.0, 5.0);
 	triangles[6].v3 = vec3(-5.0, 5.0,-5.0);
-	triangles[6].MaterialIdx = 0;
+	triangles[6].MaterialIdx = 1;
 
 	triangles[7].v1 = vec3(-5.0,-5.0,-5.0);
 	triangles[7].v2 = vec3(-5.0,-5.0, 5.0);
 	triangles[7].v3 = vec3(-5.0, 5.0, 5.0);
-	triangles[7].MaterialIdx = 0;
+	triangles[7].MaterialIdx = 1;
 
 	/* top wall */
 	triangles[8].v1 = vec3(-5.0,5.0,-5.0);
 	triangles[8].v2 = vec3(5.0, 5.0, -5.0);
 	triangles[8].v3 = vec3(-5.0, 5.0,5.0);
-	triangles[8].MaterialIdx = 0;
+	triangles[8].MaterialIdx = 3;
 
 	triangles[9].v1 = vec3(5.0,5.0,5.0);
 	triangles[9].v2 = vec3(5.0, 5.0, -5.0);
 	triangles[9].v3 = vec3(-5.0, 5.0,5.0);
-	triangles[9].MaterialIdx = 0;
+	triangles[9].MaterialIdx = 3;
 
 	/* bottom wall */
 	triangles[10].v1 = vec3(-5.0,-5.0,-5.0);
 	triangles[10].v2 = vec3(5.0, -5.0, -5.0);
 	triangles[10].v3 = vec3(-5.0, -5.0,5.0);
-	triangles[10].MaterialIdx = 0;
+	triangles[10].MaterialIdx = 5;
 
 	triangles[11].v1 = vec3(5.0,-5.0,5.0);
 	triangles[11].v2 = vec3(5.0,-5.0, -5.0);
 	triangles[11].v3 = vec3(-5.0, -5.0,5.0);
-	triangles[11].MaterialIdx = 0;
+	triangles[11].MaterialIdx = 5;
 
 	/** SPHERES **/
 
@@ -201,7 +201,7 @@ void initializeDefaultScene(out STriangle triangles[12], out SSphere spheres[2])
 
 	spheres[1].Center = vec3(2.0,1.0,2.0);
 	spheres[1].Radius = 1.0;
-	spheres[1].MaterialIdx = 0;
+	spheres[1].MaterialIdx = 4;
 }
 
 bool IntersectSphere(SSphere sphere, SRay ray, float start, float final, out float time)
@@ -263,7 +263,7 @@ bool IntersectTriangle(SRay ray, vec3 v1, vec3 v2, vec3 v3, out float time)
 	return true;
 }
 
-bool RayTrace(SRay ray, SSphere spheres[2], STriangle triangles[12], SMaterial materials[2], float start, float final, inout SIntersection intersect)
+bool RayTrace(SRay ray, SSphere spheres[2], STriangle triangles[12], SMaterial materials[6], float start, float final, inout SIntersection intersect)
 {
 	bool result = false;
 	float test = start;
@@ -276,11 +276,12 @@ bool RayTrace(SRay ray, SSphere spheres[2], STriangle triangles[12], SMaterial m
 			intersect.Time = test;
 			intersect.Point = ray.Origin + ray.Direction * test;
 			intersect.Normal = normalize(intersect.Point - spheres[i].Center);
-			intersect.Color = materials[0].Color;
-			intersect.LightCoeffs = materials[0].LightCoeffs;
-			intersect.ReflectionCoef = materials[0].ReflectionCoef;
-			intersect.RefractionCoef = materials[0].RefractionCoef;
-			intersect.MaterialType = materials[0].MaterialType;
+			int materialIndex = sphere.MaterialIdx; 
+			intersect.Color = materials[materialIndex].Color;
+			intersect.LightCoeffs = materials[materialIndex].LightCoeffs;
+			intersect.ReflectionCoef = materials[materialIndex].ReflectionCoef;
+			intersect.RefractionCoef = materials[materialIndex].RefractionCoef;
+			intersect.MaterialType = materials[materialIndex].MaterialType;
 			result = true;
 		}
 	}
@@ -292,20 +293,21 @@ bool RayTrace(SRay ray, SSphere spheres[2], STriangle triangles[12], SMaterial m
 			intersect.Time = test;
 			intersect.Point = ray.Origin + ray.Direction * test;
 			intersect.Normal = normalize(cross(triangle.v1 - triangle.v2, triangle.v3 - triangle.v2));
-			intersect.Color = materials[1].Color;
-			intersect.LightCoeffs = materials[1].LightCoeffs;
-			intersect.ReflectionCoef = materials[1].ReflectionCoef;
-			intersect.RefractionCoef = materials[1].RefractionCoef;
-			intersect.MaterialType = materials[1].MaterialType;
+			int materialIndex = triangle.MaterialIdx;
+			intersect.Color = materials[materialIndex].Color;
+			intersect.LightCoeffs = materials[materialIndex].LightCoeffs;
+			intersect.ReflectionCoef = materials[materialIndex].ReflectionCoef;
+			intersect.RefractionCoef = materials[materialIndex].RefractionCoef;
+			intersect.MaterialType = materials[materialIndex].MaterialType;
 			result = true;
 		}
 	}
 	return result;
 }
 
-void initializeDefaultLightMaterials(out SLight light, out SMaterial materials[2])
+void initializeDefaultLightMaterials(out SLight light, out SMaterial materials[6])
 {
-	light.Position = vec3(0.0, 2.0, -4.0f);
+	light.Position = vec3(0.5, 4.0, -4.0f);
 	vec4 lightCoefs = vec4(0.4, 0.9, 0.0, 512.0);
 
 	materials[0].Color = vec3(0.4, 0.0, 0.0);
@@ -319,6 +321,30 @@ void initializeDefaultLightMaterials(out SLight light, out SMaterial materials[2
 	materials[1].ReflectionCoef = 1.0;
 	materials[1].RefractionCoef = 0.5;
 	materials[1].MaterialType = DIFFUSE;
+
+	materials[2].Color = vec3(0.5, 0.4, 0.8);
+	materials[2].LightCoeffs = vec4(lightCoefs);
+	materials[2].ReflectionCoef = 0.5;
+	materials[2].RefractionCoef = 1.0;
+	materials[2].MaterialType = DIFFUSE_REFLECTION;
+
+	materials[3].Color = vec3(0.1, 0.8, 0.9);
+	materials[3].LightCoeffs = vec4(lightCoefs);
+	materials[3].ReflectionCoef = 0.5;
+	materials[3].RefractionCoef = 1.0;
+	materials[3].MaterialType = DIFFUSE_REFLECTION;
+
+	materials[4].Color = vec3(0.9, 0.2, 0.9);
+	materials[4].LightCoeffs = vec4(lightCoefs);
+	materials[4].ReflectionCoef = 0.5;
+	materials[4].RefractionCoef = 1.0;
+	materials[4].MaterialType = MIRROR_REFLECTION;
+
+	materials[5].Color = vec3(0.1, 0.5, 0.8);
+	materials[5].LightCoeffs = vec4(lightCoefs);
+	materials[5].ReflectionCoef = 0.5;
+	materials[5].RefractionCoef = 1.0;
+	materials[5].MaterialType = DIFFUSE_REFLECTION;
 }
 
 vec3 Phong(SIntersection intersect, SLight currLight, float shadow)
