@@ -434,7 +434,7 @@ void main()
 		final = BIG;
 		if (RayTrace(ray, spheres, triangles, materials, start, final,	intersect))
 		{
-			float attenuation = 0.9;
+			float attenuation = 0.2;
 			switch(intersect.MaterialType)
 			{
 				case DIFFUSE_REFLECTION:
