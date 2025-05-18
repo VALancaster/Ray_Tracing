@@ -7,6 +7,17 @@ const int DIFFUSE = 1;
 const int REFLECTION = 2;
 const int REFRACTION = 3;
 
+const int RED_DIFFUSE   = 0;
+const int GLASS         = 1;
+const int GREEN_DIFFUSE = 2;
+const int BLUE_DIFFUSE  = 3;
+const int MIRROR        = 4;
+const int GRAY_DIFFUSE  = 5;
+const int GOLD          = 6;
+const int SILVER        = 7;
+const int EMERALD       = 8;
+const int RUBY          = 9;
+
 const int DIFFUSE_REFLECTION = 1;
 const int MIRROR_REFLECTION = 2;
 
@@ -80,7 +91,7 @@ struct STracingRay
 STriangle triangles[12]; 
 SSphere spheres[2];
 SLight light;
-SMaterial materials[6];
+SMaterial materials[10];
 SCamera uCamera;
 
 STracingRay stack[10];
@@ -95,6 +106,10 @@ bool isEmpty()
 
 void pushRay(STracingRay ray)
 {
+	if (ray.depth > 100 || stackSize >= 9 || ray.contribution < 0.01) 
+	{
+        return;
+    }
 	stack[stackSize] = ray;
 	stackSize++;
 }
@@ -129,73 +144,73 @@ void initializeDefaultScene(out STriangle triangles[12], out SSphere spheres[2])
     triangles[0].v1 = vec3(-5.0,-5.0,-5.0);
     triangles[0].v2 = vec3(-5.0, 5.0, 5.0);
     triangles[0].v3 = vec3(-5.0, 5.0,-5.0);
-    triangles[0].MaterialIdx = 2;
+    triangles[0].MaterialIdx = BLUE_DIFFUSE;
 
     triangles[1].v1 = vec3(-5.0,-5.0,-5.0);
     triangles[1].v2 = vec3(-5.0,-5.0, 5.0);
     triangles[1].v3 = vec3(-5.0, 5.0, 5.0);
-    triangles[1].MaterialIdx = 2;
+    triangles[1].MaterialIdx = BLUE_DIFFUSE;
 
     triangles[2].v1 = vec3(-5.0,-5.0, 5.0);
     triangles[2].v2 = vec3( 5.0,-5.0, 5.0);
     triangles[2].v3 = vec3(-5.0, 5.0, 5.0);
-    triangles[2].MaterialIdx = 5;
+    triangles[2].MaterialIdx = GRAY_DIFFUSE;
 
     triangles[3].v1 = vec3( 5.0, 5.0, 5.0);
     triangles[3].v2 = vec3(-5.0, 5.0, 5.0);
     triangles[3].v3 = vec3( 5.0,-5.0, 5.0);
-    triangles[3].MaterialIdx = 5;
+    triangles[3].MaterialIdx = GRAY_DIFFUSE;
 
     triangles[4].v1 = vec3(5.0,-5.0,-5.0);
     triangles[4].v2 = vec3(5.0, 5.0,-5.0);
     triangles[4].v3 = vec3(5.0, 5.0, 5.0);
-    triangles[4].MaterialIdx = 3;
+    triangles[4].MaterialIdx = MIRROR;
 
     triangles[5].v1 = vec3(5.0,-5.0,-5.0);
     triangles[5].v2 = vec3(5.0, 5.0, 5.0);
     triangles[5].v3 = vec3(5.0,-5.0, 5.0);
-    triangles[5].MaterialIdx = 3;
+    triangles[5].MaterialIdx = MIRROR;
 
     triangles[6].v1 = vec3(-5.0,-5.0,-5.0);
     triangles[6].v2 = vec3( 5.0,-5.0,-5.0);
     triangles[6].v3 = vec3(-5.0,-5.0, 5.0);
-    triangles[6].MaterialIdx = 0;
+    triangles[6].MaterialIdx = EMERALD;
 
     triangles[7].v1 = vec3( 5.0,-5.0,-5.0);
     triangles[7].v2 = vec3( 5.0,-5.0, 5.0);
     triangles[7].v3 = vec3(-5.0,-5.0, 5.0);
-    triangles[7].MaterialIdx = 0;
+    triangles[7].MaterialIdx = EMERALD;
 
     triangles[8].v1 = vec3(-5.0,5.0,-5.0);
     triangles[8].v2 = vec3(-5.0,5.0, 5.0);
     triangles[8].v3 = vec3( 5.0,5.0,-5.0);
-    triangles[8].MaterialIdx = 0;
+    triangles[8].MaterialIdx = GOLD;
 
     triangles[9].v1 = vec3( 5.0,5.0, 5.0);
     triangles[9].v2 = vec3( 5.0,5.0,-5.0);
     triangles[9].v3 = vec3(-5.0,5.0, 5.0);
-    triangles[9].MaterialIdx = 0;
+    triangles[9].MaterialIdx = GOLD;
 
     triangles[10].v1 = vec3(-5.0,-5.0,-5.0);
     triangles[10].v2 = vec3(-5.0, 5.0,-5.0);
     triangles[10].v3 = vec3( 5.0, 5.0,-5.0);
-    triangles[10].MaterialIdx = 5;
+    triangles[10].MaterialIdx = RED_DIFFUSE;
 
     triangles[11].v1 = vec3(-5.0,-5.0,-5.0);
     triangles[11].v2 = vec3( 5.0, 5.0,-5.0);
     triangles[11].v3 = vec3( 5.0,-5.0,-5.0);
-    triangles[11].MaterialIdx = 5;
+    triangles[11].MaterialIdx = RED_DIFFUSE;
 
 
 	/** SPHERES **/
 
 	spheres[0].Center = vec3(-1.0,-1.0,-1.0);
 	spheres[0].Radius = 2.0;
-	spheres[0].MaterialIdx = 0;
+	spheres[0].MaterialIdx = RUBY;
 
 	spheres[1].Center = vec3(2.0,1.0,2.0);
 	spheres[1].Radius = 1.0;
-	spheres[1].MaterialIdx = 4;
+	spheres[1].MaterialIdx = GLASS;
 }
 
 bool IntersectSphere(SSphere sphere, SRay ray, float start, float final, out float time)
@@ -257,7 +272,7 @@ bool IntersectTriangle(SRay ray, vec3 v1, vec3 v2, vec3 v3, out float time)
 	return true;
 }
 
-bool RayTrace(SRay ray, SSphere spheres[2], STriangle triangles[12], SMaterial materials[6], float start, float final, inout SIntersection intersect)
+bool RayTrace(SRay ray, SSphere spheres[2], STriangle triangles[12], SMaterial materials[10], float start, float final, inout SIntersection intersect)
 {
 	bool result = false;
 	float test = start;
@@ -299,46 +314,70 @@ bool RayTrace(SRay ray, SSphere spheres[2], STriangle triangles[12], SMaterial m
 	return result;
 }
 
-void initializeDefaultLightMaterials(out SLight light, out SMaterial materials[6])
+void initializeDefaultLightMaterials(out SLight light, out SMaterial materials[10])
 {
 	light.Position = vec3(0.5, 4.0, -4.0f);
 	vec4 lightCoefs = vec4(0.4, 0.9, 0.0, 512.0);
 
-	materials[0].Color = vec3(0.4, 0.0, 0.0);
-	materials[0].LightCoeffs = vec4(lightCoefs);
-	materials[0].ReflectionCoef = 0.5;
-	materials[0].RefractionCoef = 1.0;
-	materials[0].MaterialType = REFLECTION;
+    materials[RED_DIFFUSE].Color = vec3(0.4, 0.0, 0.0);
+    materials[RED_DIFFUSE].LightCoeffs = vec4(lightCoefs);
+    materials[RED_DIFFUSE].ReflectionCoef = 0.5;
+    materials[RED_DIFFUSE].RefractionCoef = 1.0;
+    materials[RED_DIFFUSE].MaterialType = DIFFUSE_REFLECTION;
 
-	materials[1].Color = vec3(0.8, 0.1, 1.0);
-	materials[1].LightCoeffs = vec4(lightCoefs);
-	materials[1].ReflectionCoef = 1.0;
-	materials[1].RefractionCoef = 0.5;
-	materials[1].MaterialType = DIFFUSE;
+    materials[GLASS].Color = vec3(0.9, 0.9, 1.0);
+    materials[GLASS].LightCoeffs = vec4(0.1, 0.5, 0.0, 512.0);
+    materials[GLASS].ReflectionCoef = 0.3;
+    materials[GLASS].RefractionCoef = 1.5;
+    materials[GLASS].MaterialType = REFRACTION;
 
-	materials[2].Color = vec3(0.5, 0.4, 0.8);
-	materials[2].LightCoeffs = vec4(lightCoefs);
-	materials[2].ReflectionCoef = 0.5;
-	materials[2].RefractionCoef = 1.0;
-	materials[2].MaterialType = DIFFUSE_REFLECTION;
+    materials[GREEN_DIFFUSE].Color = vec3(0.0, 0.4, 0.0);
+    materials[GREEN_DIFFUSE].LightCoeffs = vec4(lightCoefs);
+    materials[GREEN_DIFFUSE].ReflectionCoef = 0.2;
+    materials[GREEN_DIFFUSE].RefractionCoef = 1.0;
+    materials[GREEN_DIFFUSE].MaterialType = DIFFUSE_REFLECTION;
 
-	materials[3].Color = vec3(0.1, 0.8, 0.9);
-	materials[3].LightCoeffs = vec4(lightCoefs);
-	materials[3].ReflectionCoef = 0.5;
-	materials[3].RefractionCoef = 1.0;
-	materials[3].MaterialType = DIFFUSE_REFLECTION;
+    materials[BLUE_DIFFUSE].Color = vec3(0.0, 0.0, 0.7);
+    materials[BLUE_DIFFUSE].LightCoeffs = vec4(lightCoefs);
+    materials[BLUE_DIFFUSE].ReflectionCoef = 0.5;
+    materials[BLUE_DIFFUSE].RefractionCoef = 1.0;
+    materials[BLUE_DIFFUSE].MaterialType = DIFFUSE_REFLECTION;
 
-	materials[4].Color = vec3(0.9, 0.2, 0.9);
-	materials[4].LightCoeffs = vec4(lightCoefs);
-	materials[4].ReflectionCoef = 0.5;
-	materials[4].RefractionCoef = 1.0;
-	materials[4].MaterialType = MIRROR_REFLECTION;
+    materials[MIRROR].Color = vec3(0.9, 0.2, 0.9);
+    materials[MIRROR].LightCoeffs = vec4(lightCoefs);
+    materials[MIRROR].ReflectionCoef = 0.9;
+    materials[MIRROR].RefractionCoef = 0.0;
+    materials[MIRROR].MaterialType = MIRROR_REFLECTION;
 
-	materials[5].Color = vec3(0.1, 0.5, 0.8);
-	materials[5].LightCoeffs = vec4(lightCoefs);
-	materials[5].ReflectionCoef = 0.5;
-	materials[5].RefractionCoef = 1.0;
-	materials[5].MaterialType = DIFFUSE_REFLECTION;
+    materials[GRAY_DIFFUSE].Color = vec3(0.5, 0.5, 0.5);
+    materials[GRAY_DIFFUSE].LightCoeffs = vec4(lightCoefs);
+    materials[GRAY_DIFFUSE].ReflectionCoef = 0.3;
+    materials[GRAY_DIFFUSE].RefractionCoef = 1.0;
+    materials[GRAY_DIFFUSE].MaterialType = DIFFUSE_REFLECTION;
+
+    materials[GOLD].Color = vec3(1.0, 0.75, 0.33);
+    materials[GOLD].LightCoeffs = vec4(0.25, 0.6, 0.4, 32.0);
+    materials[GOLD].ReflectionCoef = 0.3;
+    materials[GOLD].RefractionCoef = 0.1;
+    materials[GOLD].MaterialType = REFLECTION;
+
+    materials[SILVER].Color = vec3(0.97, 0.96, 0.9);
+    materials[SILVER].LightCoeffs = vec4(0.25, 0.6, 0.4, 64.0);
+    materials[SILVER].ReflectionCoef = 0.9;
+    materials[SILVER].RefractionCoef = 0.0;
+    materials[SILVER].MaterialType = REFLECTION;
+
+    materials[EMERALD].Color = vec3(0.0, 0.6, 0.0);
+    materials[EMERALD].LightCoeffs = vec4(0.0215, 0.2174, 0.0215, 12.8);
+    materials[EMERALD].ReflectionCoef = 0.2;
+    materials[EMERALD].RefractionCoef = 1.6;
+    materials[EMERALD].MaterialType = REFRACTION;
+
+    materials[RUBY].Color = vec3(0.61, 0.041, 0.041);
+    materials[RUBY].LightCoeffs = vec4(0.0215, 0.2174, 0.0215, 12.8);
+    materials[RUBY].ReflectionCoef = 0.3;
+    materials[RUBY].RefractionCoef = 1.76;
+    materials[RUBY].MaterialType = REFRACTION;
 }
 
 vec3 Phong(SIntersection intersect, SLight currLight, float shadow)
@@ -395,6 +434,7 @@ void main()
 		final = BIG;
 		if (RayTrace(ray, spheres, triangles, materials, start, final,	intersect))
 		{
+			float attenuation = 0.9;
 			switch(intersect.MaterialType)
 			{
 				case DIFFUSE_REFLECTION:
@@ -415,6 +455,39 @@ void main()
 					float contribution = trRay.contribution * intersect.ReflectionCoef;
 					STracingRay reflectRay = STracingRay(SRay(intersect.Point + ReflectDirection * EPSILON, ReflectDirection), contribution, trRay.depth + 1);
 					pushRay(reflectRay);
+					break;
+				}
+				case REFRACTION:
+				{
+					float eta = 1.0 / intersect.RefractionCoef;
+					vec3 N = intersect.Normal;
+					float cosTheta = dot(-ray.Direction, N);
+					if (cosTheta < 0.0) 
+					{
+    					eta = intersect.RefractionCoef;
+						N = -N;
+					}
+					vec3 refractDir = refract(normalize(ray.Direction), intersect.Normal, eta);
+					float contribution = trRay.contribution * pow(attenuation, float(trRay.depth));
+
+					if (trRay.contribution < 0.001)
+					{
+						resultColor += contribution * intersect.Color;
+						break;
+					}
+					
+					if (length(refractDir) > 0.0)
+					{
+						STracingRay refractRay = STracingRay(SRay(intersect.Point + refractDir * EPSILON, refractDir), contribution, trRay.depth + 1);
+						pushRay(refractRay);
+					}
+					if (intersect.ReflectionCoef > 0.0)
+					{
+						vec3 reflectDir = reflect(normalize(ray.Direction), intersect.Normal);
+						STracingRay reflectRay = STracingRay(SRay(intersect.Point + reflectDir * EPSILON, reflectDir), contribution * intersect.ReflectionCoef, trRay.depth + 1);
+						pushRay(reflectRay);
+					}
+					resultColor += trRay.contribution * intersect.Color * 0.2;
 					break;
 				}
 			}
